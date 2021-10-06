@@ -1,0 +1,12 @@
+
+    
+    MaxM = double(max(max(M)));
+    MinM = double(min(min(M)));
+    for i = 1:size(M,1)
+        for j = 1:size(M,2)
+           M(i,j) = ((M(i,j)-MinM)/(MaxM-MinM))*(b-a)+a  ;
+        end
+    end
+    %M = double(M)/double(max(max(M)));
+    %M = ((M-MinM)/(MaxM-MinM))*(b-a)+a
+end
