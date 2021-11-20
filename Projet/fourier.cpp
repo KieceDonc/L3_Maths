@@ -12,9 +12,24 @@ typedef std::complex<float> Complex;
 typedef std::vector<Complex> CVector;
 typedef std::vector<CVector> CVector2D;
 
+// ------- FONCTION D'AIDE POUR DÉCOUPER DES VECTEURS
+
+CVector slice1D(CVector in, int start, int size, int increment){
+    CVector out(size);
+    int outIndex=0;
+    for(int inIndex = start;inIndex<=size;inIndex+=increment){
+        out[outIndex]=in[inIndex];
+        outIndex+=1;
+    }
+    return out;
+}
+
+
+
 // ------- AFFICHAGE DES VECTEURS DANS LA CONSOLE
 
 void printVector1D(CVector in){
+    cout << "\t\t\t";
     for(int x = 0 ; x < in.size() ; x++){
         cout << in[x] << " ";
     }
@@ -41,7 +56,6 @@ CVector TF1DB(CVector& in, bool inverse){
     for(int u = 0 ; u < N ; u++){
         Complex result = 0.0f;
 
-
         for(int x = 0 ; x < N ; x++){
             Complex theta = (2.0fi*PI*u*x)/N;
             if(inverse){
@@ -50,14 +64,37 @@ CVector TF1DB(CVector& in, bool inverse){
             result += in[x] * exp(theta);
         }
 
-        out[u] = result;
-        if(inverse){
-            //out[u] = out[u] / (N*N*1.0f);
-        } 
+        out[u] = result; 
     }
 
     return out;
 }
+
+// Transformée de Fourier 1D rapide 
+CVector TF1FFT(CVector in){
+    int N = in.size();
+    if (N <= 1){
+        return CVector{in[0]};
+    }
+ 
+    // divide
+    CVector even = slice1D(in,0,N/2, 2);
+    CVector odd = slice1D(in,1,N/2, 2);
+    
+    // conquer
+    TF1FFT(even);
+    TF1FFT(odd);
+
+    // combine
+    for (size_t k = 0; k < N/2; ++k){
+        Complex t = std::polar(1.0f, -2 * PI * k / N) * odd[k];
+        in[k    ] = even[k] + t;
+        in[k+N/2] = even[k] - t;
+    }
+
+    return in;
+}
+
 
 // ------- TRANSFORMEES DE FOURIER 2D
 
@@ -100,23 +137,31 @@ int main(){
 
     CVector vecOut = TF1DB(vecIn3,false);
     CVector vecOut2 = TF1DB(vecOut,true);
-    cout << "Vecteur entrée :\t"; 
+    cout << "Vecteur entrée :"; 
     printVector1D(vecIn3);
-    cout << "TF :\t\t\t"; 
+    cout << "TF :"; 
     printVector1D(vecOut);
-    cout << "TFI :\t\t\t";
+    cout << "TFI :";
     printVector1D(vecOut2);
 
+    CVector vecOutFFT = TF1FFT(vecIn3);
+    CVector vecOutFFT2 = TF1FFT(vecOutFFT);
+    cout << "Vecteur entrée :"; 
+    printVector1D(vecIn3);
+    cout << "TF :"; 
+    printVector1D(vecOutFFT);
+    cout << "TFI :";
+    printVector1D(vecOutFFT2);
 
     CVector2D vecIn2D{{50.0f,3.0f},{4.0f,5.0f}};
 
     CVector2D vecOut2D = TF2DB(vecIn2D,false);
     CVector2D vecOut2D_2 = TF2DB(vecOut2D,true);
-    cout << "Vecteur entrée :" << endl ; 
+    cout << "Vecteur entrée :"; 
     printVector2D(vecIn2D);
-    cout << "TF :" << endl; 
+    cout << "TF :"; 
     printVector2D(vecOut2D);
-    cout << "TFI :" << endl;
+    cout << "TFI :";
     printVector2D(vecOut2D_2);
 
 
