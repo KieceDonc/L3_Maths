@@ -17,12 +17,9 @@ void printCArray(CArray& in){
     cout << endl;
 }
 
-void fft(CArray& x)
-{
+void fft(CArray& x){
     const size_t N = x.size();
     if (N <= 1){
-        cout << "--------------------------\nTaille 1 :\t" ;
-        printCArray(x);
         return;
     }
  
@@ -30,20 +27,10 @@ void fft(CArray& x)
     CArray even = x[std::slice(0, N/2, 2)];
     CArray  odd = x[std::slice(1, N/2, 2)];
 
-    cout << "--------------------------\neven :\t\t" ;
-    printCArray(even);
-    cout << "\nout :\t\t";
-    printCArray(odd);
- 
     // conquer
     fft(even);
     fft(odd);
 
-    cout << "--------------------------\nEntrée avec :";
-    printCArray(even);
-    cout << "et" ;
-    printCArray(odd);
- 
     // combine
     for (size_t k = 0; k < N/2; ++k)
     {
@@ -60,12 +47,12 @@ void fft(CArray& x)
 
 int main(){
 
-    CArray out{1.0, 1.0, 2.0, 3.0};
+    CArray in{1.0, 1.0, 2.0, 3.0};
     cout << "-----\nfft de :\t" ;
-    printCArray(out);
-    fft(out);
+    printCArray(in);
+    fft(in);
     cout << "-----\nSortie :\t" ;
-    printCArray(out);
+    printCArray(in);
 
     return 0;
 }
