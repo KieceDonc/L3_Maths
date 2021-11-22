@@ -30,28 +30,28 @@ void printVector2D(CVector2D in){
 
 // ------- TRANSFORMEES DE FOURIER 1D
 
-// Transformée de Fourier 1D brutale : si bool true -> transformée inverse
-CVector TF1DB(CVector& in, bool inverse){
+// Transformée de Fourier 1D discrete directe et inverse : si bool true -> transformée inverse
+CVector TF1D(CVector& in, bool inverse){
     int N = in.size();                              // Taille du vecteur en entrée
     CVector out(in.size(),0.0f);                    // Vecteur sortie rempli de 0
+    Complex root;                                   // Contenu de l'exponentielle (racine de l'unité a.k.a root of unity)
+    Complex sum;                                    // Calcul de la somme (calcul de chaque index du vecteur sortie)
     
-    // Formule : in[u] = somme de 0 à N-1 des in[x] * exp(-2*i*PI*u*x)
-    for(int u = 0 ; u < N ; u++){
-        Complex result = 0.0f;
+    // Formule : in[u] = somme de 0 à N-1 des in[x] * exp(-2*i*PI*k*x) pour k de 0 à N-1
+    for(int k = 0 ; k < N ; k++){
+        sum = 0.0f;
 
-
+        //Boucle des k de 0 à N-1
         for(int x = 0 ; x < N ; x++){
-            Complex theta = (2.0fi*PI*u*x)/N;
-            if(inverse){
-                theta*=-1;
-            }
-            result += in[x] * exp(theta);
+            root = (2.0fi*PI*k*x)/N;    
+            if(inverse)
+                root*=-1;
+            sum += in[x] * exp(root);
         }
 
-        out[u] = result;
-        if(inverse){
-            out[u] = out[u] / (N*1.0f);
-        } 
+        out[k] = sum;
+        if(inverse)
+            out[k] = out[k] / (N*1.0f);
     }
 
     return out;
@@ -124,9 +124,9 @@ int main(){
 
     //CVector2D machin{vector<float>{1.0f,2.0f},vector<float>{3.0f,4.0f}};
     //TF1DB(truc0,false);
-    CVector vecOut = TF1DB(vecIn3,false);
+    CVector vecOut = TF1D(vecIn3,false);
 
-    CVector vecOut2 = TF1DB(vecOut,true);
+    CVector vecOut2 = TF1D(vecOut,true);
     cout << "Vecteur entrée :\t"; 
     printVector1D(vecIn3);
     cout << "TF :\t\t\t"; 
