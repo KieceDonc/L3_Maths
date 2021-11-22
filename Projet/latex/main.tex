@@ -1,0 +1,153 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lachaise Assignment
+% LaTeX Template
+% Version 1.0 (26/6/2018)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Marion Lachaise & François Févotte
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\input{structure.tex} % Include the file specifying the document structure and custom commands
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Mathématiques pour l'Informatique : Compte Rendu} % Title of the assignment
+\author{Valentin VERSTRACTE \& Evan PETIT}
+
+\date{L3 --- Jean-Luc BARIL --- \today} % University, school and/or department name(s) and a date
+
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	Table des matières
+%----------------------------------------------------------------------------------------
+\bigskip
+\bigskip
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+\vspace{75pt}
+
+%----------------------------------------------------------------------------------------
+% 
+%----------------------------------------------------------------------------------------
+
+\section{Introduction} 
+
+Ce rapport concerne le rendu du projet de Mathématiques pour l'informatique. Le projet a été intégralement réalisé en collaboration sur GitHub, en langage C++ pour l'implémentation des algorithmes, et en \LaTeX pour le compte-rendu.\\~\\
+Sommaire des fonctionnalités implémentées :
+
+
+\begin{description}
+	\item [Transformée de Fourier discrète 1D \& 2D] Implémentation de la transformée discrète directe et inverse depuis la formule mathématique 
+	\item [Transformée de Fourier rapide 1D \& 2D] Implémentation de la transformée rapide avec l'algorithme de Cooley-Tukey
+	\item [Séquence de tests] Vérification des résultats obtenus 
+\end{description}
+
+\newpage
+
+\section{Transformée de Fourier discrète}
+
+
+
+\subsection{Transformée de Fourier 1D directe et inverse}
+
+\subsubsection{Formule}
+On rappelle la formule, où \textbf{g(x)} est le signal original, et \textbf{$\widehat{\textbf{g}}$(x)} est son calcul par la TFD. La transformée de Fourier directe permet d'obtenir $\widehat{g}$(x) depuis g(x).
+
+\begin{equation}
+		\widehat{g}(x) = \sum_{x = 0}^{N-1}g(x) exp(\frac{-2i\pi kx}{N}) \qquad pour \qquad 0 \leq k < N
+\end{equation}
+
+\noindent L'inverse permet... L'inverse. On remarque l'introduction d'une multiplication d'un facteur -1 dans l'exponentielle
+
+\begin{equation}
+	g(x) = \sum_{x = 0}^{N-1}\widehat{g}(x) exp(\frac{2i\pi kx}{N}) \qquad pour \qquad 0 \leq k < N
+\end{equation}
+
+
+\noindent L'algorithme équivalent peut être implémenté de façon brutale. On a besoin de deux boucles : Une pour calculer le produit à l'intérieur de la somme pour les valeurs de k allant de 0 à N-1, et une pour sommer tous les résultats obtenus pour x allant de 0 à N-1. Modulo un facteur -1 pour obtenir la transformée inverse.
+
+Il suffit donc d'implémenter une fonction qui prend un tableau 1D et un booléen en entrée - Qui permet de choisir entre transformée directe et inverse.
+
+\begin{algorithm}
+	\caption{Transformée discrète 1D directe et inverse}\label{alg:cap}
+	\KwIn{$g[N]$ : Vecteur 1D complexe\\inverse : Booléen }
+	\KwOut{$G[N]$ : Vecteur 1D complexe}
+	\Begin{
+		\For{$k \gets 0 .. N-1$}
+		{   
+			$somme \gets 0$\\
+			\For{$x \gets 0 .. N-1$}
+			{
+				$z = ( 2 * i * \Pi * k * x ) / N$\\
+				\If{inverse}{$z \gets -z$}
+				$somme \gets somme + g[x] * exp(z)$
+			}
+			$G[k] \gets somme$\\
+			\If{inverse}{$G[k] \gets G[k]/N$}
+		}		
+	}		
+\end{algorithm}
+
+\subsubsection{Complexité}
+
+La complexité de l'algorithme se déduit assez facilement. Soit \textbf{g} le vecteur passé en entrée, de taille \textbf{n}, et \textbf{k} un indice quelconque de g.
+\begin{itemize}
+	\item Pour calculer \textbf{g[k]} il faut calculer le produit de g[0] avec une exponentielle complexe, de même pour g[1], g[2], . . . , g[n-1] et faire la somme de tous ces produits. Le tableau est de taille n, on fait donc n produits ainsi qu'une addition (négligeable). On peut dire qu'on effectue \textbf{n} opérations élémentaires.
+	\item Il faut répéter cette étape autant de fois qu'il y a d'indices dans le tableau. C'est à dire \textbf{n} fois.
+	\item Au total on compte (à quelques constantes près) \textbf{n*n} opérations.
+	La complexité finale est donc de l'ordre de O(n * n) = \textbf{O(n²)} 
+\end{itemize}
+
+\subsubsection{Diagramme}
+
+On peut réaliser un simple diagramme pour représenter cet algorithme. Ici g[x] est le signal d'entrée (représenté par un vecteur 1D), et G[x] le vecteur en sortie. Ils sont de taille N.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[height=8cm]{./assets/TFD1D.png}
+	\caption{TFD 1D}
+	\label{fig:TFD1D}
+\end{figure}
+
+
+\subsection{Transformée de Fourier 2D discrète et séparabilité}
+
+La formule de la transformée de Fourier 2D discrète directe est la suivante :
+
+\begin{equation}
+	\widehat{g}(x,y) = \sum_{x = 0}^{N-1}\sum_{y = 0}^{M-1}g(x,y) exp(-2i\pi(\frac{jx}{N}+\frac{ky}{M})) \quad pour \quad 0 \leq j < N\quad et \quad 0 \leq k < M
+\end{equation}
+
+\noindent On admettra que la matrice d'entrée - l'image, ici - est séparable, c'est à dire que $g[x,y] = X[x]Y[y]$. 
+
+
+\section{Transformée de Fourier rapide}
+
+\section{Annexe}
+
+
+
+\end{document}
