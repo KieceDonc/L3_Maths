@@ -89,27 +89,23 @@ On rappelle la formule, où \textbf{g(x)} est le signal original, et \textbf{$\w
 
 \noindent L'algorithme équivalent peut être implémenté de façon brutale. On a besoin de deux boucles : Une pour calculer le produit à l'intérieur de la somme pour les valeurs de k allant de 0 à N-1, et une pour sommer tous les résultats obtenus pour x allant de 0 à N-1. Modulo un facteur -1 pour obtenir la transformée inverse.
 
-Il suffit donc d'implémenter une fonction qui prend un tableau 1D et un booléen en entrée - Qui permet de choisir entre transformée directe et inverse.
 
 \begin{algorithm}
-	\caption{Transformée discrète 1D directe et inverse}\label{alg:cap}
-	\KwIn{$g[N]$ : Vecteur 1D complexe\\inverse : Booléen }
+	\caption{Transformée discrète 1D directe}\label{alg:cap}
+	\KwIn{$g[N]$ : Vecteur 1D complexe}
 	\KwOut{$G[N]$ : Vecteur 1D complexe}
 	\Begin{
 		\For{$k \gets 0 .. N-1$}
 		{   
-			$somme \gets 0$\\
 			\For{$x \gets 0 .. N-1$}
 			{
-				$z = ( 2 * i * \Pi * k * x ) / N$\\
-				\If{inverse}{$z \gets -z$}
-				$somme \gets somme + g[x] * exp(z)$
+				$G[k] \gets G[0] + g[x] * $(exponentielle complexe en fonction de k et x)
 			}
-			$G[k] \gets somme$\\
-			\If{inverse}{$G[k] \gets G[k]/N$}
 		}		
 	}		
 \end{algorithm}
+
+Comme dit précédemment, la transformée inverse ne demande que l'introduction d'un facteur -1 dans le contenu de l'exponentielle, ainsi que de diviser chaque indice de vecteur par la taille totale du vecteur)
 
 \subsubsection{Complexité}
 
@@ -132,19 +128,139 @@ On peut réaliser un simple diagramme pour représenter cet algorithme. Ici g[x]
 	\label{fig:TFD1D}
 \end{figure}
 
+\subsection{Transformée de Fourier 2D discrète}
 
-\subsection{Transformée de Fourier 2D discrète et séparabilité}
-
-La formule de la transformée de Fourier 2D discrète directe est la suivante :
+La formule de la transformée de Fourier 2D discrète directe pour une matrice de taille N,M est la suivante
 
 \begin{equation}
 	\widehat{g}(x,y) = \sum_{x = 0}^{N-1}\sum_{y = 0}^{M-1}g(x,y) exp(-2i\pi(\frac{jx}{N}+\frac{ky}{M})) \quad pour \quad 0 \leq j < N\quad et \quad 0 \leq k < M
 \end{equation}
 
-\noindent On admettra que la matrice d'entrée - l'image, ici - est séparable, c'est à dire que $g[x,y] = X[x]Y[y]$. 
+Cette fois-ci on boucle sur 2 éléments de taille N (x et j), et 2 éléments de taille M (y et k). La complexité ne s'exprime plus en O(N²) mais en \textbf{O(N²M²)}. Si on introduit une matrice carrée de taille N,N cela signifie que la complexité est en \textbf{\textit{O($\textbf{N}^4$)}}. C'est gigantesque.\\
+
+\noindent On admettra la propriété énonçant que la transformée de Fourier discrète directe (et indirecte) d'une matrice 2D consiste à effectuer la transformée de Fourier 1D des lignes, suivie de la transformée de Fourier 1D des colonnes.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[height=7cm]{./assets/TFD2D.png}
+	\caption{TFD 2D}
+	\label{fig:TFD2D}
+\end{figure}
+
 
 
 \section{Transformée de Fourier rapide}
+
+La transformée de Fourier directe présente un défaut majeur : Son absurde lenteur. On a vu que la transformée de Fourier discrète 2D possédait une complexité polynomiale (en temps O($N^4$)).\\
+Si l'on considère une matrice de taille $N*N$ avec $N = 2^{10} = 1024$, et la durée d'une opération élémentaire de $2ns$, alors le calcul de la transformée de Fourier de cette matrice prendrait $1024^4ns = 1099s = \textbf{18\:minutes}$.\\
+Pour un algorithme que l'on retrouve dans énormément de domaines - tant qu'il s'agit d'un pilier de l'informatique moderne - C'est beaucoup trop long.\\
+On chercherait plutôt à se retrouver avec une complexité presque linéaire qu'on retrouve souvent en algorithmique, c'est à dire en temps $\textbf{O(n log(n))}$. Avec un tel algorithme, le temps de calcul pour une matrice avec $N = 2^{10}$, le temps de calcul chuterait à \textbf{20 480 ns}, une différence d'ordre de grandeur de $10^7$!\\~\\
+Un algorithme permet cela, il s'agit de la transformée de Fourier rapide. Dans la suite sera présentée la version récursive de cet algorithme par les informaticiens \textbf{Cooley \& Tukey} - Elle a pour avantage d'être assez simple, élégante, et il s'agit de la première version de cet algorithme à être vastement employée. Ses désavantages principaux sont de ne pouvoir travailler qu'avec des vecteurs ayant une taille en puissances de deux - et de devoir se servir de la pile de récursion qui est assez limitée en fonction du langage de programmation.
+Mais il s'agit d'une très bonne porte d'entrée pour la compréhension de la Transformée de Fourier rapide (la \textbf{FFT} pour \textbf{F}ast \textbf{F}ourier \textbf{T}ransform).
+
+\subsection{Principe de l'algorithme de Cooley-Tukey}
+
+A l'instar du tri fusion ou du tri rapide, cet algorithme se base sur le principe \textit{Divide and Conquer}. \\
+En \textbf{divisant} (divide) le vecteur de base en deux sous-vecteurs de taille inférieure N/2, diviser ces sous-vecteurs en sous-sous-vecteurs, etc... On peut traiter des vecteurs de taille 1. La transformée de Fourier discrète d'un vecteur de taille 1 étant excessivement simple à calculer, et alors il suffit juste de \textbf{recombiner} (conquer) ces vecteurs entre eux pour obtenir le résultat : Ce type de schéma se prête très fortement à la récursion - \textit{même si les algorithmes récents cherchent à l'éviter à cause de soucis de performance} - car on procède en problèmes de plus en plus petits.\\~\\
+Cependant, comment choisir de quelle manière diviser ces vecteurs? Il est possible de manipuler légèrement la formule de la transformée de Fourier directe pour obtenir ce que l'on souhaite.
+
+\subsection{Décomposition}
+
+Soit la formule de la transformée de Fourier 1D. \textbf{g} est le vecteur donné en entrée \textbf{G} est le calcul de la FFT de ce même vecteur, de taille $\textbf{N} = 2^{n}$.
+
+\begin{equation}
+	G_{k} = \sum_{x = 0}^{N-1}g_{x} exp(\frac{-2i\pi kx}{N}) \qquad pour \qquad 0 \leq k < N
+\end{equation}
+
+\subsubsection{Indices pairs et impairs}
+
+La manière la plus courante pour décomposer cette équation en somme de deux termes est de séparer les indices pairs et impairs : x devient alors 2p ou 2p+1 en fonction de sa \textbf{parité.} Puisque N est une puissance de 2, il est pair, donc les deux sous-sommes obtenues sont de même taille : \textbf{N/2}
+
+\begin{equation}
+	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi k(2p)}{N})}_\text{Indices pairs} + \underbrace{\sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k(2p+1)}{N})}_\text{Indices impairs} \qquad pour \qquad 0 \leq k < N
+\end{equation}
+
+\newpage Un des premiers éléments clés de cet algorithme apparaît alors. Même si pour le moment, le contenu des deux sommes n'est pas le même, il est possible que les exponentielles complexes le soient! Dans la somme des indices impairs, il suffit de factoriser par une \textbf{constante obtenue depuis le (2p+1)} :
+
+\begin{equation}
+	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi k(2p)}{N})}_\text{Indices pairs} + \underbrace{  \sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k(2p)}{N} + \overbrace{\frac{-2i\pi k*1}{N}}^\text{Constante} )  }_\text{Indices impairs} \quad pour \quad 0 \leq k < N
+\end{equation}
+\begin{equation}
+	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi kp}{N})}_\text{Indices pairs} + \underbrace{exp(\frac{-2i\pi k}{N/2})\sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k	p}{N/2})}_\text{Indices impairs} \quad pour \quad 0 \leq k < N
+\end{equation}
+
+On peut déjà remarquer que les deux sommes correspondent à la formule de deux transformées de Fourier. Si l'on appelle \textbf{P} la transformée de Fourier des indices \textbf{P}airs, et \textbf{I} la transformée de fourier des indices \textbf{I}mpairs, alors on a :
+
+\begin{equation}
+	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi kp}{N/2})}_\text{Transformée de Fourier aux indices pairs : $P_{k}$} + exp(\frac{-2i\pi k}{N})\underbrace{\sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k	p}{N/2})}_\text{Transformée de Fourier aux indices impairs : $I_{k}$} \quad pour \quad 0 \leq k < N
+\end{equation}
+\begin{equation}
+	G_{k} = P_{k} + \underbrace{exp(\frac{-2i\pi k}{N})}_\text{Constante} I_{k} \quad pour \quad 0 \leq k < N
+\end{equation}
+
+\subsubsection{Plage de valeurs de k}
+
+Il reste une dernière épine dans le pied : La plage de valeurs de k. En effet, on calcule G pour k de 0 à N-1, mais il est possible de vérifier que cette équation reste la même pour \textbf{k de 0 à N/2 - 1} et pour \\\textbf{k + N/2 avec k de 0 à N/2 - 1} (l'union de ces deux intervalles étant bien k de 0 à N-1)\\~\\
+
+\noindent\qquad \textbf{Cas de l'exponentielle contenue dans $I_{k}$ et $P_{k}$ , avec k de 0 à N/2-1}\\~\\
+Remplaçons k par k+N/2 et essayons de supprimer le terme N/2. Pour cela servons nous de la forme trigonométrique pour jouer avec la périodicité des fonctions sin et cos :
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)p}{N/2}) = cos(\frac{-2\pi (k+N/2)p}{N/2})+i\:sin(\frac{-2\pi (k+N/2)p}{N/2})
+\end{equation}
+On peut distribuer (k+N/2) et simplifier :
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)p}{N/2}) = cos(\frac{-2\pi (N/2)p-2\pi k}{N/2})+i\:sin(\frac{-2\pi (N/2)p-2\pi k}{N/2})
+\end{equation}
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)p}{N/2}) = cos(-2\pi p+\frac{2\pi k}{N/2})+i\:sin(-2\pi p+\frac{2\pi k}{N/2})
+\end{equation}
+Or, les fonctions cosinus et sinus sont de période $2\pi$, de plus p est un entier. On peut donc se débarrasser des termes fraîchement obtenus, et regarder ce que l'on obtient sous forme exponentielle :
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)p}{N/2}) = cos(\frac{2\pi k}{N/2})+i\:sin(\frac{2\pi k}{N/2})
+\end{equation}
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)p}{N/2}) = exp(\frac{-2i\pi kp}{N/2}) \qquad pour \qquad 0 \leq k < N/2
+\end{equation}
+
+\noindent\qquad \textbf{Cas de la constante devant la somme des index impairs, avec k de 0 à N/2-1}\\~\\
+Au début il suffit de procéder de la même manière, cette fois ci avec seulement N au numérateur et sans le facteur p :
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)}{N}) = cos(\frac{-2\pi (k+N/2)}{N})+i\:sin(\frac{-2\pi (k+N/2)}{N})
+\end{equation}
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)}{N}) = cos(\frac{-2\pi (N/2)-2\pi k}{N})+i\:sin(\frac{-2\pi (N/2)-2\pi k}{N})
+\end{equation}
+Cette fois ci on perd le facteur 2 en sortant $-2\pi (N/2)$ de la fraction car 2 n'est plus au dénominateur :
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)}{N}) = cos(-\pi +\frac{2\pi k}{N})+i\:sin(-\pi +\frac{2\pi k}{N})
+\end{equation}
+Soustraire ou additionner $\pi$ au sein d'un sinus ou d'un cosinus ne fait que changer son signe. 
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)}{N}) = - cos(-\pi +\frac{2\pi k}{N})-i\:sin(-\pi +\frac{2\pi k}{N})
+\end{equation}
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)}{N}) = - ( cos(-\pi +\frac{2\pi k}{N})+i\:sin(-\pi +\frac{2\pi k}{N}))
+\end{equation}
+\begin{equation}
+	exp(\frac{-2i\pi (k+N/2)}{N/2}) = - exp(\frac{-2i\pi k}{N/2}) \qquad pour \qquad 0 \leq k < N/2
+\end{equation}
+
+Nous venons de diviser la taille de l'intervalle de k par 2. Maintenant k existe sur l'intervalle 0 à N/2-1.\\~\\
+
+\subsubsection{Synthèse de la décomposition}
+On peut définir notre transformée de Fourier en fonction de 2 cas : Quand l'indice est inférieur à N/2 (k), ou quand il est supérieur (k+N/2).
+\begin{equation}
+	\begin{cases}
+		G_{k} = P_{k} + exp(\frac{-2i\pi k}{N}) I_{k} \quad pour \quad 0 \leq k < N/2\\
+		G_{k+\frac{N}{2}} = P_{k} - exp(\frac{-2i\pi k}{N}) I_{k} \quad pour \quad 0 \leq k < N/2
+	\end{cases}
+\end{equation}
+
+
+\subsection{Principe de récursion}
+
+
+
 
 \section{Annexe}
 

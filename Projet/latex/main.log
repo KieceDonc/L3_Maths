@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.10.11)  21 NOV 2021 17:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.10.11)  23 NOV 2021 17:46
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -939,23 +939,45 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip146
 )
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2020/03/24 v1.24 mathematical typesetting tools
+
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
+\g_MT_multlinerow_int=\count358
+\l_MT_multwidth_dim=\dimen297
+\origjot=\skip147
+\l_MT_shortvdotswithinadjustabove_dim=\dimen298
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen299
+\l_MT_above_intertext_sep=\dimen300
+\l_MT_below_intertext_sep=\dimen301
+\l_MT_above_shortintertext_sep=\dimen302
+\l_MT_below_shortintertext_sep=\dimen303
+\xmathstrut@box=\box89
+\xmathstrut@dim=\dimen304
+)
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count358
-\Gm@cntv=\count359
-\c@Gm@tempcnt=\count360
-\Gm@bindingoffset=\dimen297
-\Gm@wd@mp=\dimen298
-\Gm@odd@mp=\dimen299
-\Gm@even@mp=\dimen300
-\Gm@layoutwidth=\dimen301
-\Gm@layoutheight=\dimen302
-\Gm@layouthoffset=\dimen303
-\Gm@layoutvoffset=\dimen304
+\Gm@cnth=\count359
+\Gm@cntv=\count360
+\c@Gm@tempcnt=\count361
+\Gm@bindingoffset=\dimen305
+\Gm@wd@mp=\dimen306
+\Gm@odd@mp=\dimen307
+\Gm@even@mp=\dimen308
+\Gm@layoutwidth=\dimen309
+\Gm@layoutheight=\dimen310
+\Gm@layouthoffset=\dimen311
+\Gm@layoutvoffset=\dimen312
 \Gm@dimlist=\toks39
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
@@ -1344,10 +1366,10 @@ Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 \XKV@toks=\toks42
 \XKV@tempa@toks=\toks43
 )
-\XKV@depth=\count361
+\XKV@depth=\count362
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )))
-\c@Question=\count362
+\c@Question=\count363
 )
 runsystem(which pygmentize && touch main.aex)...executed.
 
@@ -1400,16 +1422,16 @@ LaTeX Font Info:    ... okay on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count363
-\scratchdimen=\dimen305
-\scratchbox=\box89
-\nofMPsegments=\count364
-\nofMParguments=\count365
+\scratchcounter=\count364
+\scratchdimen=\dimen313
+\scratchbox=\box90
+\nofMPsegments=\count365
+\nofMParguments=\count366
 \everyMPshowfont=\toks44
-\MPscratchCnt=\count366
-\MPscratchDim=\dimen306
-\MPnumerator=\count367
-\makeMPintoPDFobject=\count368
+\MPscratchCnt=\count367
+\MPscratchDim=\dimen314
+\MPnumerator=\count368
+\makeMPintoPDFobject=\count369
 \everyMPtoPDFconversion=\toks45
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1420,7 +1442,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count369
+\c@lstlisting=\count370
 Package hyperref Info: Link coloring OFF on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -1432,7 +1454,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count370
+\c@section@level=\count371
 )
 LaTeX Info: Redefining \ref on input line 39.
 LaTeX Info: Redefining \pageref on input line 39.
@@ -1477,8 +1499,8 @@ LaTeX Info: Redefining \nameref on input line 39.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@mv@tabular=\count371
-\c@mv@boldtabular=\count372
+\c@mv@tabular=\count372
+\c@mv@boldtabular=\count373
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
 (Font)              scaled to size 17.28pt on input line 42.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
@@ -1532,52 +1554,119 @@ ction d'une mul-ti-pli-ca-tion d'un fac-teur -1 dans l'exponentielle
  []
 
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 112.
+(Font)              scaled to size 10.0pt on input line 106.
 LaTeX Font Info:    Trying to load font information for TS1+XCharter-TLF on inp
-ut line 118.
+ut line 114.
 (/usr/share/texlive/texmf-dist/tex/latex/xcharter/TS1XCharter-TLF.fd
 File: TS1XCharter-TLF.fd 2020/05/25 (msharpe) Font definitions for TS1/XCharter
 -TLF.
 )
 LaTeX Font Info:    Font shape `TS1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 118.
+(Font)              scaled to size 10.0pt on input line 114.
 LaTeX Font Info:    Font shape `TS1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 121.
-<./assets/TFD1D.png, id=63, 585.18625pt x 403.5075pt>
+(Font)              scaled to size 10.0pt on input line 117.
+<./assets/TFD1D.png, id=93, 585.18625pt x 403.5075pt>
 File: ./assets/TFD1D.png Graphic file (type png)
 <use ./assets/TFD1D.png>
-Package pdftex.def Info: ./assets/TFD1D.png  used on input line 130.
+Package pdftex.def Info: ./assets/TFD1D.png  used on input line 126.
 (pdftex.def)             Requested size: 330.11295pt x 227.62204pt.
  [2]
-[3 <./assets/TFD1D.png>] (./main.aux)
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/it' will be
+(Font)              scaled to size 10.0pt on input line 139.
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/it' will be
+(Font)              scaled to size 7.0pt on input line 139.
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/it' will be
+(Font)              scaled to size 5.0pt on input line 139.
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+
+ []
+
+<./assets/TFD2D.png, id=112, 463.7325pt x 462.72874pt>
+File: ./assets/TFD2D.png Graphic file (type png)
+<use ./assets/TFD2D.png>
+Package pdftex.def Info: ./assets/TFD2D.png  used on input line 145.
+(pdftex.def)             Requested size: 199.59921pt x 199.16928pt.
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
+(Font)              scaled to size 5.0pt on input line 155.
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--160
+
+ []
+
+[3 <./assets/TFD1D.png> <./assets/TFD2D.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 163--166
+
+ []
+
+[4]
+Overfull \hbox (9.68883pt too wide) detected at line 196
+\OML/cmm/m/it/10 G[] \OT1/cmr/m/n/10 = [] +\OML/cmm/m/it/10 exp\OT1/cmr/m/n/10 
+([]) []  \OML/cmm/m/it/10 pour \OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T \OML/cmm/
+m/it/10 k < N
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--227
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 248--249
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 248--249
+
+ []
+
+[6] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 014917DEA052F479D07FDE17FFED1030;640.
+(rerunfilecheck)             Checksum: 37263AD579D36E9898343088108105B1;1107.
  ) 
 Here is how much of TeX's memory you used:
- 25402 strings out of 479304
- 465039 string characters out of 5869778
- 833482 words of memory out of 5000000
- 42019 multiletter control sequences out of 15000+600000
- 483479 words of font info for 83 fonts, out of 8000000 for 9000
+ 25934 strings out of 479304
+ 474695 string characters out of 5869778
+ 852206 words of memory out of 5000000
+ 42513 multiletter control sequences out of 15000+600000
+ 507825 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 112i,19n,114p,541b,525s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/xcharter/xch1_z3wvjz.enc}{/usr
-/share/texlive/texmf-dist/fonts/enc/dvips/xcharter/xch1_co4ru4.enc}{/usr/share/
-texlive/texmf-dist/fonts/enc/dvips/xcharter/xch_rydp4l.enc}</usr/share/texlive/
+ 112i,16n,114p,671b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/xcharter/xch_rydp4l.enc}{/usr/
+share/texlive/texmf-dist/fonts/enc/dvips/xcharter/xch1_z3wvjz.enc}{/usr/share/t
+exlive/texmf-dist/fonts/enc/dvips/xcharter/xch1_co4ru4.enc}</usr/share/texlive/
 texmf-dist/fonts/type1/public/xcharter/XCharter-Bold.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/xcharter/XCharter-Italic.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/xcharter/XCharter-Roman.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy7.pfb>
-Output written on main.pdf (3 pages, 248447 bytes).
+xmf-dist/fonts/type1/public/xcharter/XCharter-BoldItalic.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/xcharter/XCharter-Italic.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/xcharter/XCharter-Roman.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on main.pdf (6 pages, 335025 bytes).
 PDF statistics:
- 135 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
- 20 named destinations out of 1000 (max. 500000)
- 105 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 216 PDF objects out of 1000 (max. 8388607)
+ 186 compressed objects within 2 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 158 words of extra memory for PDF output out of 10000 (max. 10000000)
 

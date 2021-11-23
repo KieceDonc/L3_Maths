@@ -4,6 +4,12 @@
 \BOOKMARK [3][-]{subsubsection.2.1.1}{Formule}{subsection.2.1}% 4
 \BOOKMARK [3][-]{subsubsection.2.1.2}{Complexit\351}{subsection.2.1}% 5
 \BOOKMARK [3][-]{subsubsection.2.1.3}{Diagramme}{subsection.2.1}% 6
-\BOOKMARK [2][-]{subsection.2.2}{Transform\351e de Fourier 2D discr\350te et s\351parabilit\351}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Transform\351e de Fourier 2D discr\350te}{section.2}% 7
 \BOOKMARK [1][-]{section.3}{Transform\351e de Fourier rapide}{}% 8
-\BOOKMARK [1][-]{section.4}{Annexe}{}% 9
+\BOOKMARK [2][-]{subsection.3.1}{Principe de l'algorithme de Cooley-Tukey}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{D\351composition}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Indices pairs et impairs}{subsection.3.2}% 11
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Plage de valeurs de k}{subsection.3.2}% 12
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Synth\350se de la d\351composition}{subsection.3.2}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Principe de r\351cursion}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Annexe}{}% 15
