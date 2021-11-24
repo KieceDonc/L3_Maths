@@ -149,12 +149,14 @@ Cette fois-ci on boucle sur 2 éléments de taille N (x et j), et 2 éléments d
 
 \section{Transformée de Fourier rapide}
 
-La transformée de Fourier directe présente un défaut majeur : Son absurde lenteur. On a vu que la transformée de Fourier discrète 2D possédait une complexité polynomiale (en temps O($N^4$)).\\
-Si l'on considère une matrice de taille $N*N$ avec $N = 2^{10} = 1024$, et la durée d'une opération élémentaire de $2ns$, alors le calcul de la transformée de Fourier de cette matrice prendrait $1024^4ns = 1099s = \textbf{18\:minutes}$.\\
+La transformée de Fourier directe présente un défaut majeur : Son absurde lenteur. On a vu que la transformée de Fourier discrète 1D possédait une complexité polynomiale (en temps O($N^2$)).\\
+Si l'on considère un vecteur de taille $N$ avec $N = 2^{12} = 4096$, et la durée d'une opération élémentaire de $10ns$, alors le calcul de la transformée de Fourier de cette matrice prendrait $4096^2*10 = 167772160ns = 0.17s = \textbf{18\:minutes}$.\\
 Pour un algorithme que l'on retrouve dans énormément de domaines - tant qu'il s'agit d'un pilier de l'informatique moderne - C'est beaucoup trop long.\\
-On chercherait plutôt à se retrouver avec une complexité presque linéaire qu'on retrouve souvent en algorithmique, c'est à dire en temps $\textbf{O(n log(n))}$. Avec un tel algorithme, le temps de calcul pour une matrice avec $N = 2^{10}$, le temps de calcul chuterait à \textbf{20 480 ns}, une différence d'ordre de grandeur de $10^7$!\\~\\
+On chercherait plutôt à se retrouver avec une complexité presque linéaire qu'on retrouve souvent en algorithmique, c'est à dire en temps $\textbf{O(n log(n))}$. Avec un tel algorithme, le temps de calcul pour une matrice avec $N = 2^{12}$, le temps de calcul chuterait à \textbf{491 520 ns}, une différence d'ordre de grandeur de $10^3$!\\~\\
 Un algorithme permet cela, il s'agit de la transformée de Fourier rapide. Dans la suite sera présentée la version récursive de cet algorithme par les informaticiens \textbf{Cooley \& Tukey} - Elle a pour avantage d'être assez simple, élégante, et il s'agit de la première version de cet algorithme à être vastement employée. Ses désavantages principaux sont de ne pouvoir travailler qu'avec des vecteurs ayant une taille en puissances de deux - et de devoir se servir de la pile de récursion qui est assez limitée en fonction du langage de programmation.
-Mais il s'agit d'une très bonne porte d'entrée pour la compréhension de la Transformée de Fourier rapide (la \textbf{FFT} pour \textbf{F}ast \textbf{F}ourier \textbf{T}ransform).
+Mais il s'agit d'une très bonne porte d'entrée pour la compréhension de la Transformée de Fourier rapide (la \textbf{FFT} pour \textbf{F}ast \textbf{F}ourier \textbf{T}ransform).\\
+
+\noindent \textbf{Nous ne présenterons que la transformée rapide 1D} - En effet on a vu précédemment que la transformée 2D était la composée de deux transformée 1D.
 
 \subsection{Principe de l'algorithme de Cooley-Tukey}
 
@@ -365,12 +367,23 @@ On peut alors faire une remarque qui simplifie énormément la définition des s
 Il est très commun de sereprésenter la transformée de Fourier par un diagramme nommé papillon (\textit{butterfly}) - Il montre comment se combinent les termes avec les racines n-ième de l'unité. Profitons en pour montrer comment se décompose un signal. 
 \\~~~
 \noindent Exemple avec un vecteur de taille N = 8 :
-\newpage On commence par décomposer le vecteur original en vecteurs de taille 1 à l'aide des divisions successives par 2. Ainsi on peut calculer la transformée de Fourier de chacun d'entre eux très simplement!
+\newpage \noindent On commence par décomposer le vecteur original en vecteurs de taille 1 à l'aide des divisions successives par 2. Ainsi on peut calculer la transformée de Fourier de chacun d'entre eux très simplement!
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[height=7cm]{./assets/divide.png}
-	\caption{TFD 2D}
+	\caption{Divide . . .}
 	\label{fig:divide}
 \end{figure}
+
+\noindent Puis on recompose les 16 vecteurs de taille 1 en 8 vecteurs de taille 2, puis 4 vecteurs de taille 4, puis 2 vecteurs de taille 8, puis enfin notre vecteur résultat de taille 16! Le fameux diagramme papillon - On peut d'ailleurs voir qu'on utilise seulement les \textbf{k/2 racines n-ièmes de l'unité} à chaque étape.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[height=9cm]{./assets/conquer.png}
+	\caption{. . . and Conquer!}
+	\label{fig:conquer}
+\end{figure}
+
+\noindent Le vecteur obtenu en sortie est le signal transformé.\textit{ De la même manière que pour la transformée brute, il suffira de changer un signe - par un signe + dans nos exponentielles pour obtenir la transformée inverse : Cela correspond à passer de $\bm{\krootofunity{-k}{n}}$ à $\bm{\krootofunity{k}{n}}$}
 
 \end{document}
