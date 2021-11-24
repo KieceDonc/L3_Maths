@@ -52,7 +52,7 @@
 %----------------------------------------------------------------------------------------
 % 
 %----------------------------------------------------------------------------------------
-
+\newpage
 \section{Introduction} 
 
 Ce rapport concerne le rendu du projet de Mathématiques pour l'informatique. Le projet a été intégralement réalisé en collaboration sur GitHub, en langage C++ pour l'implémentation des algorithmes, et en \LaTeX pour le compte-rendu.\\~\\
@@ -64,9 +64,7 @@ Sommaire des fonctionnalités implémentées :
 	\item [Transformée de Fourier rapide 1D \& 2D] Implémentation de la transformée rapide avec l'algorithme de Cooley-Tukey
 	\item [Séquence de tests] Vérification des résultats obtenus 
 \end{description}
-
 \newpage
-
 \section{Transformée de Fourier discrète}
 
 
@@ -77,13 +75,13 @@ Sommaire des fonctionnalités implémentées :
 On rappelle la formule, où \textbf{g(x)} est le signal original, et \textbf{$\widehat{\textbf{g}}$(x)} est son calcul par la TFD. La transformée de Fourier directe permet d'obtenir $\widehat{g}$(x) depuis g(x).
 
 \begin{equation}
-		\widehat{g}(x) = \sum_{x = 0}^{N-1}g(x) exp(\frac{-2i\pi kx}{N}) \qquad pour \qquad 0 \leq k < N
+		\widehat{g}(k) = \sum_{x = 0}^{N-1}g(x) exp(\frac{-2i\pi kx}{N}) \qquad pour \qquad 0 \leq k < N
 \end{equation}
 
 \noindent L'inverse permet... L'inverse. On remarque l'introduction d'une multiplication d'un facteur -1 dans l'exponentielle
 
 \begin{equation}
-	g(x) = \sum_{x = 0}^{N-1}\widehat{g}(x) exp(\frac{2i\pi kx}{N}) \qquad pour \qquad 0 \leq k < N
+	g(k) = \sum_{x = 0}^{N-1}\widehat{g}(x) exp(\frac{2i\pi kx}{N}) \qquad pour \qquad 0 \leq k < N
 \end{equation}
 
 
@@ -133,7 +131,7 @@ On peut réaliser un simple diagramme pour représenter cet algorithme. Ici g[x]
 La formule de la transformée de Fourier 2D discrète directe pour une matrice de taille N,M est la suivante
 
 \begin{equation}
-	\widehat{g}(x,y) = \sum_{x = 0}^{N-1}\sum_{y = 0}^{M-1}g(x,y) exp(-2i\pi(\frac{jx}{N}+\frac{ky}{M})) \quad pour \quad 0 \leq j < N\quad et \quad 0 \leq k < M
+	\widehat{g}(k,j) = \sum_{x = 0}^{N-1}\sum_{y = 0}^{M-1}g(x,y) exp(-2i\pi(\frac{jx}{N}+\frac{ky}{M})) \quad pour \quad 0 \leq j < N\quad et \quad 0 \leq k < M
 \end{equation}
 
 Cette fois-ci on boucle sur 2 éléments de taille N (x et j), et 2 éléments de taille M (y et k). La complexité ne s'exprime plus en O(N²) mais en \textbf{O(N²M²)}. Si on introduit une matrice carrée de taille N,N cela signifie que la complexité est en \textbf{\textit{O($\textbf{N}^4$)}}. C'est gigantesque.\\
@@ -177,22 +175,22 @@ Soit la formule de la transformée de Fourier 1D. \textbf{g} est le vecteur donn
 La manière la plus courante pour décomposer cette équation en somme de deux termes est de séparer les indices pairs et impairs : x devient alors 2p ou 2p+1 en fonction de sa \textbf{parité.} Puisque N est une puissance de 2, il est pair, donc les deux sous-sommes obtenues sont de même taille : \textbf{N/2}
 
 \begin{equation}
-	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi k(2p)}{N})}_\text{Indices pairs} + \underbrace{\sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k(2p+1)}{N})}_\text{Indices impairs} \qquad pour \qquad 0 \leq k < N
+	G_{k} = \underbrace{\sum_{p = 0}^{N/2-1}g_{2p} exp(\frac{-2i\pi k(2p)}{N})}_\text{Indices pairs} + \underbrace{\sum_{p = 0}^{N/2-1}g_{2p+1} exp(\frac{-2i\pi k(2p+1)}{N})}_\text{Indices impairs} \qquad pour \qquad 0 \leq k < N
 \end{equation}
 
 \newpage Un des premiers éléments clés de cet algorithme apparaît alors. Même si pour le moment, le contenu des deux sommes n'est pas le même, il est possible que les exponentielles complexes le soient! Dans la somme des indices impairs, il suffit de factoriser par une \textbf{constante obtenue depuis le (2p+1)} :
 
 \begin{equation}
-	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi k(2p)}{N})}_\text{Indices pairs} + \underbrace{  \sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k(2p)}{N} + \overbrace{\frac{-2i\pi k*1}{N}}^\text{Constante} )  }_\text{Indices impairs} \quad pour \quad 0 \leq k < N
+	G_{k} = \underbrace{\sum_{p = 0}^{N/2-1}g_{2p} exp(\frac{-2i\pi k(2p)}{N})}_\text{Indices pairs} + \underbrace{  \sum_{p = 0}^{N/2-1}g_{2p+1} exp(\frac{-2i\pi k(2p)}{N} + \overbrace{\frac{-2i\pi k*1}{N}}^\text{Constante} )  }_\text{Indices impairs} \quad pour \quad 0 \leq k < N
 \end{equation}
 \begin{equation}
-	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi kp}{N})}_\text{Indices pairs} + \underbrace{exp(\frac{-2i\pi k}{N/2})\sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k	p}{N/2})}_\text{Indices impairs} \quad pour \quad 0 \leq k < N
+	G_{k} = \underbrace{\sum_{p = 0}^{N/2-1}g_{2p} exp(\frac{-2i\pi kp}{N})}_\text{Indices pairs} + \underbrace{exp(\frac{-2i\pi k}{N/2})\sum_{p = 0}^{N/2-1}g_{2p+1} exp(\frac{-2i\pi k	p}{N/2})}_\text{Indices impairs} \quad pour \quad 0 \leq k < N
 \end{equation}
 
 On peut déjà remarquer que les deux sommes correspondent à la formule de deux transformées de Fourier. Si l'on appelle \textbf{P} la transformée de Fourier des indices \textbf{P}airs, et \textbf{I} la transformée de fourier des indices \textbf{I}mpairs, alors on a :
 
 \begin{equation}
-	G_{k} = \underbrace{\sum_{2p = 0}^{(N-1)/2}g_{2p} exp(\frac{-2i\pi kp}{N/2})}_\text{Transformée de Fourier aux indices pairs : $P_{k}$} + exp(\frac{-2i\pi k}{N})\underbrace{\sum_{2p+1 = 0}^{(N-1)/2}g_{2p+1} exp(\frac{-2i\pi k	p}{N/2})}_\text{Transformée de Fourier aux indices impairs : $I_{k}$} \quad pour \quad 0 \leq k < N
+	G_{k} = \underbrace{\sum_{p = 0}^{N/2-1}g_{2p} exp(\frac{-2i\pi kp}{N/2})}_\text{Transformée de Fourier aux indices pairs : $P_{k}$} + exp(\frac{-2i\pi k}{N})\underbrace{\sum_{p = 0}^{N/2-1}g_{2p+1} exp(\frac{-2i\pi k	p}{N/2})}_\text{Transformée de Fourier aux indices impairs : $I_{k}$} \quad pour \quad 0 \leq k < N
 \end{equation}
 \begin{equation}
 	G_{k} = P_{k} + \underbrace{exp(\frac{-2i\pi k}{N})}_\text{Constante} I_{k} \quad pour \quad 0 \leq k < N
@@ -243,12 +241,12 @@ Soustraire ou additionner $\pi$ au sein d'un sinus ou d'un cosinus ne fait que c
 \end{equation}
 \begin{equation}
 	exp(\frac{-2i\pi (k+N/2)}{N/2}) = - exp(\frac{-2i\pi k}{N/2}) \qquad pour \qquad 0 \leq k < N/2
-\end{equation}
+\end{equation}\\~\\
 
-Nous venons de diviser la taille de l'intervalle de k par 2. Maintenant k existe sur l'intervalle 0 à N/2-1.\\~\\
+\noindent Ainsi, en divisant par deux la taille de l'intervalle de k, on divise par deux le nombre d'opérations à effectuer.\\
 
 \subsubsection{Synthèse de la décomposition}
-On peut définir notre transformée de Fourier en fonction de 2 cas : Quand l'indice est inférieur à N/2 (k), ou quand il est supérieur (k+N/2).
+On peut définir notre transformée de Fourier en fonction de 2 cas : Quand l'indice est inférieur à N/2 (k), ou quand il est supérieur (k+N/2). Seul le signe de la constante devant la somme des indices impairs change.
 \begin{equation}
 	\begin{cases}
 		G_{k} = P_{k} + exp(\frac{-2i\pi k}{N}) I_{k} \quad pour \quad 0 \leq k < N/2\\
@@ -257,13 +255,122 @@ On peut définir notre transformée de Fourier en fonction de 2 cas : Quand l'in
 \end{equation}
 
 
+\subsection{Cas de la Transformée de Fourier 1D d'un signal à 1 échantillon}
+Cette étape est triviale, mais permet de définir le cas de base de la récursion. On a donc pour un signal \textbf{g} à \textbf{N = 1} échantillon :
+
+\begin{equation}
+	G_{0} = \sum_{x = 0}^{0}g_{0} \underbrace{exp(\frac{-2i\pi 0x}{1})}_\text{= 0} \qquad pour \qquad 0 \leq k < 1
+\end{equation}
+\begin{equation}
+	G_{0} = g_{0}
+\end{equation}
+Donc dans le cas d'un vecteur contenant un seul élément, \textbf{sa transformée de Fourier équivaut à lui-même.}
+
+\newpage
+
 \subsection{Principe de récursion}
 
+\subsubsection{Pseudo-code}
+
+Munis du cas de base et du cas de propagation, il est donc possible de définir un algorithme calculant la transformée de Fourier de manière récursive :
+
+\begin{algorithm}
+	\caption{FFT1D(g[N]) - Transformée Rapide (algorithme de Cooley-Tukey)}\label{alg:ct}
+	\KwIn{$g[N]$ : Vecteur 1D complexe de taille N tel que N est une puissance de 2}
+	\KwOut{$G[N]$ : Vecteur 1D complexe de taille N tel que N est une puissance de 2}
+	\Begin{
+		\eIf{$N = 1$} 
+			{$G[0] \gets g[0]$ \Comment{Cas de base}}
+			{$P[N/2] \gets indices\:pairs\:de\:g$\Comment{Cas de propagation}\\$I[N/2] \gets indices\:impairs\:de\:g$\\
+			 $FFT1D(P)$\\$FFT1D(I)$
+			
+			\For{$k \gets 0 .. N/2-1$}
+				{   
+					$G[k] \gets P[k] + exp(\frac{-2\pi k}{N}) I(k)$\\
+					$G[k+N/2] \gets P[k] - exp(\frac{-2\pi k}{N}) I(k)$
+				}	
+			}
+		$\textbf{return\:} G$
+	}		
+\end{algorithm}
+
+\noindent Il s'agit de cet algorithme que nous avons implémenté en C++.
+
+\subsubsection{Complexité}
+
+\begin{itemize}
+	\item Puisque les entrées sont des tableaux possédant une taille n telle que n est une puissance de 2, et que l'algorithme effectue des divisions par 2 sur un tableau de taille n jusqu'à des tableaux de taille 1 : Il faut compter $\bm{\log{}_{2}n}$ étapes de division. On compte le même nombre d'étapes pour recombiner les tableaux entre eux, mais $O(2 * \log{}_{2}n) = \bm{O(\log{}_{2}n)}$
+	\item A chaque étape, on effectue une addition ou une soustraction avec un complexe pour \textbf{chaque} tableau. C'est à dire qu'on effectue ces opérations $n$ fois. Donc en $\bm{O(n)}$.
+	\item Au total cela correspond à une complexité en $\bm{O(n log{}_{2}n)}$ 
+\end{itemize}
+
+\subsection{Symmétrie de la transformée de Fourier}
+
+Le thème récurrent de la transformée de Fourier rapide est la symétrie : En particulier celles de nombres complexes opposés sur le plan complexe. Pour visualiser cela de manière élégante, il est très utile de présenter la notion de \textbf{racines n-ièmes de l'unité} - même si ce n'est pas nécessaire.
+
+\subsubsection{Racines n-ièmes de l'unité}
+On appelle \textbf{racine n-ième de l'unité} un nombre complexe $z$ tel que $z^{n} = 1$. Il existe n racines n-ièmes de l'unité différentes et elles sont de la forme $\bm{exp(\frac{2i\pi k}{n})\:pour\:0\:\leq\:k\:<\:n}$ et cela se démontre facilement :
+\begin{equation}
+	exp(\frac{2i\pi k}{n})^{n} = exp(\frac{2i\pi k}{n}n) = \bm{exp(2i\pi k) = 1} \qquad pour\:k\:entier
+\end{equation}
+Montrons qu'il suffit que k soit compris entre 0 et n pour obtenir les racines n-ième de l'unité :
+\begin{equation}
+	exp(\frac{2i\pi (k+n)}{n})^{n} = exp(\frac{2i\pi kn}{n}+\frac{2i\pi n}{n}) = exp(2i\pi k + 2i\pi) = 1 \quad pour \quad 0 \leq k < n
+\end{equation}\newpage
+Par transitivité avec (23) on a alors :
+\begin{equation}
+	exp(\frac{2i\pi (k+n)}{n})^{n} = exp(\frac{2i\pi k}{n})^{n} \quad pour \quad 0 \leq k < n
+\end{equation}
 
 
+\noindent Ce nombre $exp(\frac{2i\pi k}{n})^{n}$ s'appelle \textbf{k-ième racine n-ième de l'unité}, et il est commun de la noter $\bm{\krootofunity{k}{n}}$. Par définition, il s'agit de nombres complexes de module 1 et d'argument $\frac{2i\pi k}{n}^{n}$ d'après la notation exponentielle d'un nombre complexe : $mod.exp(arg)$.\\
+On note aussi l'ensemble des racines n-ièmes de l'unité $\bm{\rootofunity{n}}$.
 
-\section{Annexe}
+\subsubsection{Multiplication par les racines n-ième de l'unité}
+On peut alors faire une remarque qui simplifie énormément la définition des sommes précédentes! En effet, tous les nombres complexes introduits dans les sommes des transformée de Fourier sont de la forme $exp(\frac{2i\pi (k)}{n})$ - Donc des racines n-ième de l'unité! Depuis les formules de la transformée de Fourier rapide on peut introduire la nouvelle notation :
 
+\begin{equation}
+	\begin{cases}
+		G_{k} = P_{k} + \krootofunity{-k}{N} I_{k} \quad pour \quad 0 \leq k < N/2\\
+		G_{k+\frac{N}{2}} = P_{k} - \krootofunity{-(k+n/2)}{N} I_{k} \quad pour \quad 0 \leq k < N/2
+	\end{cases}
+\end{equation}
 
+\noindent Pour un signal à 8 échantillons la première décomposition se visualise ainsi sur le cercle unité - En représentant le nombre complexe par lequel on multiplie $I_{k}$ (dessins réalisés avec GeoGebra)  : 
+
+\begin{figure}[!htb]
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[height=6cm]{./assets/unitCircle.png}
+		\caption{Une seule somme}
+		\label{fig:split}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[height=6cm]{./assets/unitCircleSplit.png}
+		\caption{Après la division en 2 sommes}
+		\label{fig:split2}
+	\end{minipage}
+\end{figure}
+
+\noindent En orange, les termes $G_{k}$, et en bleu les termes $G_{k+N/2}$. Une symétrie centrale apparaît, il est alors clair que l'on a besoin de calculer seulement les termes oranges pour trouver les termes bleus. L'un étant l'opposé de l'autre. On passe du calcul de 8 à 4 termes! Nous l'avions déjà montré par le calcul, de l'équation (15) à (20). Cela nous permet de déduire une nouvelle propriété des racines n-ième de l'unité (seulement si n est pair) : 
+
+\begin{equation}
+	-\krootofunity{k}{n} = \krootofunity{k+n/2}{n}
+\end{equation}
+
+\subsubsection{Papillon}
+
+Il est très commun de sereprésenter la transformée de Fourier par un diagramme nommé papillon (\textit{butterfly}) - Il montre comment se combinent les termes avec les racines n-ième de l'unité. Profitons en pour montrer comment se décompose un signal. 
+\\~~~
+\noindent Exemple avec un vecteur de taille N = 8 :
+\newpage On commence par décomposer le vecteur original en vecteurs de taille 1 à l'aide des divisions successives par 2. Ainsi on peut calculer la transformée de Fourier de chacun d'entre eux très simplement!
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[height=7cm]{./assets/divide.png}
+	\caption{TFD 2D}
+	\label{fig:divide}
+\end{figure}
 
 \end{document}

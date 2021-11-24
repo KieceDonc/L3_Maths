@@ -11,5 +11,11 @@
 \BOOKMARK [3][-]{subsubsection.3.2.1}{Indices pairs et impairs}{subsection.3.2}% 11
 \BOOKMARK [3][-]{subsubsection.3.2.2}{Plage de valeurs de k}{subsection.3.2}% 12
 \BOOKMARK [3][-]{subsubsection.3.2.3}{Synth\350se de la d\351composition}{subsection.3.2}% 13
-\BOOKMARK [2][-]{subsection.3.3}{Principe de r\351cursion}{section.3}% 14
-\BOOKMARK [1][-]{section.4}{Annexe}{}% 15
+\BOOKMARK [2][-]{subsection.3.3}{Cas de la Transform\351e de Fourier 1D d'un signal \340 1 \351chantillon}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.4}{Principe de r\351cursion}{section.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Pseudo-code}{subsection.3.4}% 16
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Complexit\351}{subsection.3.4}% 17
+\BOOKMARK [2][-]{subsection.3.5}{Symm\351trie de la transform\351e de Fourier}{section.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.5.1}{Racines n-i\350mes de l'unit\351}{subsection.3.5}% 19
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Multiplication par les racines n-i\350me de l'unit\351}{subsection.3.5}% 20
+\BOOKMARK [3][-]{subsubsection.3.5.3}{Papillon}{subsection.3.5}% 21

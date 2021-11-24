@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.10.11)  23 NOV 2021 17:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.10.11)  24 NOV 2021 20:30
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -939,6 +939,15 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip146
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2019/07/24 v1.2d Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup7
+\symboldletters=\mathgroup8
+\symboldsymbols=\mathgroup9
+\symboldstmry=\mathgroup10
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
+LaTeX Info: Redefining \bm on input line 209.
+)
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
 Package: mathtools 2020/03/24 v1.24 mathematical typesetting tools
 
@@ -1520,17 +1529,24 @@ LaTeX Font Info:    Trying to load font information for U+stmry on input line 4
 2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
+
+LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
+(Font)              using `U/stmry/m/n' instead on input line 42.
+
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
 (Font)              scaled to size 14.4pt on input line 49.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
 (Font)              scaled to size 14.4pt on input line 49.
- (./main.toc
+(./main.toc
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
 (Font)              scaled to size 10.0pt on input line 1.
 )
 \tf@toc=\write7
 \openout7 = `main.toc'.
 
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
 (Font)              scaled to size 7.0pt on input line 58.
 
@@ -1538,116 +1554,144 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--60
 
  []
 
-[1
+[2]
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
+(Font)              scaled to size 12.0pt on input line 72.
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
+(Font)              scaled to size 7.0pt on input line 75.
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
+(Font)              scaled to size 5.0pt on input line 75.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 74.
-LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 7.0pt on input line 77.
-LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 5.0pt on input line 77.
-
-Overfull \hbox (24.96317pt too wide) in paragraph at lines 83--84
+Overfull \hbox (24.96317pt too wide) in paragraph at lines 81--82
 \T1/XCharter-TLF/m/n/10 L'inverse per-met... L'inverse. On re-mar-que l'introdu
 ction d'une mul-ti-pli-ca-tion d'un fac-teur -1 dans l'exponentielle 
  []
 
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 106.
+(Font)              scaled to size 10.0pt on input line 104.
 LaTeX Font Info:    Trying to load font information for TS1+XCharter-TLF on inp
-ut line 114.
+ut line 112.
 (/usr/share/texlive/texmf-dist/tex/latex/xcharter/TS1XCharter-TLF.fd
 File: TS1XCharter-TLF.fd 2020/05/25 (msharpe) Font definitions for TS1/XCharter
 -TLF.
 )
 LaTeX Font Info:    Font shape `TS1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 114.
+(Font)              scaled to size 10.0pt on input line 112.
 LaTeX Font Info:    Font shape `TS1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 117.
-<./assets/TFD1D.png, id=93, 585.18625pt x 403.5075pt>
+(Font)              scaled to size 10.0pt on input line 115.
+<./assets/TFD1D.png, id=127, 585.18625pt x 403.5075pt>
 File: ./assets/TFD1D.png Graphic file (type png)
 <use ./assets/TFD1D.png>
-Package pdftex.def Info: ./assets/TFD1D.png  used on input line 126.
+Package pdftex.def Info: ./assets/TFD1D.png  used on input line 124.
 (pdftex.def)             Requested size: 330.11295pt x 227.62204pt.
- [2]
+ [3]
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/it' will be
-(Font)              scaled to size 10.0pt on input line 139.
+(Font)              scaled to size 10.0pt on input line 137.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/it' will be
-(Font)              scaled to size 7.0pt on input line 139.
+(Font)              scaled to size 7.0pt on input line 137.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/it' will be
-(Font)              scaled to size 5.0pt on input line 139.
+(Font)              scaled to size 5.0pt on input line 137.
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
-<./assets/TFD2D.png, id=112, 463.7325pt x 462.72874pt>
+<./assets/TFD2D.png, id=146, 463.7325pt x 462.72874pt>
 File: ./assets/TFD2D.png Graphic file (type png)
 <use ./assets/TFD2D.png>
-Package pdftex.def Info: ./assets/TFD2D.png  used on input line 145.
+Package pdftex.def Info: ./assets/TFD2D.png  used on input line 143.
 (pdftex.def)             Requested size: 199.59921pt x 199.16928pt.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 5.0pt on input line 155.
+(Font)              scaled to size 5.0pt on input line 153.
 
-Underfull \hbox (badness 10000) in paragraph at lines 154--160
-
- []
-
-[3 <./assets/TFD1D.png> <./assets/TFD2D.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 163--166
+Underfull \hbox (badness 10000) in paragraph at lines 152--158
 
  []
 
-[4]
-Overfull \hbox (9.68883pt too wide) detected at line 196
+[4 <./assets/TFD1D.png> <./assets/TFD2D.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 161--164
+
+ []
+
+[5]
+Overfull \hbox (9.68883pt too wide) detected at line 194
 \OML/cmm/m/it/10 G[] \OT1/cmr/m/n/10 = [] +\OML/cmm/m/it/10 exp\OT1/cmr/m/n/10 
 ([]) []  \OML/cmm/m/it/10 pour \OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ^^T \OML/cmm/
 m/it/10 k < N
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 203--204
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 203--204
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--207
+Underfull \hbox (badness 10000) in paragraph at lines 203--205
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--227
+Underfull \hbox (badness 10000) in paragraph at lines 223--225
 
  []
 
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
-[6] (./main.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
+
+ []
+
+[7] [8]
+<./assets/unitCircle.png, id=207, 84.93988pt x 84.8106pt>
+File: ./assets/unitCircle.png Graphic file (type png)
+<use ./assets/unitCircle.png>
+Package pdftex.def Info: ./assets/unitCircle.png  used on input line 344.
+(pdftex.def)             Requested size: 171.00299pt x 170.71652pt.
+<./assets/unitCircleSplit.png, id=208, 84.93988pt x 84.8106pt>
+File: ./assets/unitCircleSplit.png Graphic file (type png)
+<use ./assets/unitCircleSplit.png>
+Package pdftex.def Info: ./assets/unitCircleSplit.png  used on input line 351.
+(pdftex.def)             Requested size: 171.00299pt x 170.71652pt.
+
+Overfull \hbox (1.85301pt too wide) in paragraph at lines 342--355
+[]$[]$  $[]$ 
+ []
+
+[9 <./assets/unitCircle.png> <./assets/unitCircleSplit.png>]
+<./assets/divide.png, id=220, 656.4525pt x 493.845pt>
+File: ./assets/divide.png Graphic file (type png)
+<use ./assets/divide.png>
+Package pdftex.def Info: ./assets/divide.png  used on input line 371.
+(pdftex.def)             Requested size: 264.73994pt x 199.16928pt.
+ [10 <./assets/Divide.png>] (./main.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 37263AD579D36E9898343088108105B1;1107.
+(rerunfilecheck)             Checksum: 79CCE66A89BDCCF1AF35CB2281774FD7;1699.
  ) 
 Here is how much of TeX's memory you used:
- 25934 strings out of 479304
- 474695 string characters out of 5869778
- 852206 words of memory out of 5000000
- 42513 multiletter control sequences out of 15000+600000
- 507825 words of font info for 88 fonts, out of 8000000 for 9000
+ 26095 strings out of 479304
+ 476815 string characters out of 5869778
+ 853884 words of memory out of 5000000
+ 42631 multiletter control sequences out of 15000+600000
+ 513351 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 112i,16n,114p,671b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 112i,17n,114p,671b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/xcharter/xch_rydp4l.enc}{/usr/
 share/texlive/texmf-dist/fonts/enc/dvips/xcharter/xch1_z3wvjz.enc}{/usr/share/t
 exlive/texmf-dist/fonts/enc/dvips/xcharter/xch1_co4ru4.enc}</usr/share/texlive/
@@ -1655,18 +1699,23 @@ texmf-dist/fonts/type1/public/xcharter/XCharter-Bold.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/xcharter/XCharter-BoldItalic.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/xcharter/XCharter-Italic.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/xcharter/XCharter-Roman.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (6 pages, 335025 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/c
+mmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on main.pdf (10 pages, 491979 bytes).
 PDF statistics:
- 216 PDF objects out of 1000 (max. 8388607)
- 186 compressed objects within 2 object streams
- 48 named destinations out of 1000 (max. 500000)
- 158 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 307 PDF objects out of 1000 (max. 8388607)
+ 261 compressed objects within 3 object streams
+ 70 named destinations out of 1000 (max. 500000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 
