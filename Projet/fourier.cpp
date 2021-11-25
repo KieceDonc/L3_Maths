@@ -17,13 +17,20 @@ typedef std::vector<CVector> CVector2D;
 CVector slice1D(CVector in, int start, int size, int increment){
     CVector out(size);
     int outIndex=0;
-    for(int inIndex = start;inIndex<=size;inIndex+=increment){
-        out[outIndex]=in[inIndex];
+    for(int i = 0 ; i<=size ; i += 1){
+        out[outIndex]=in[start + i*increment];
         outIndex+=1;
     }
     return out;
 }
 
+// exemple in = 0 1 2 3 4 5 6 7
+// slice(in, 0, 4, 2) -> 0 2 4 6
+// ------ start = 0, size = 4 , increment = 2.
+// out = [ ] [ ] [ ] [ ]
+// outindex = 0
+// boucle de inindex = 0 à 4, increment
+// ------- boucle 1 : in
 
 
 // ------- AFFICHAGE DES VECTEURS DANS LA CONSOLE
@@ -60,7 +67,7 @@ CVector TF1D(CVector& in, bool inverse){
 
         //Boucle des k de 0 à N-1
         for(int x = 0 ; x < N ; x++){
-            root = (2.0fi*PI*k*x)/N;    
+            root = (-2.0fi*PI*k*x)/N;
             if(inverse)
                 root*=-1;
             sum += in[x] * exp(root);
@@ -77,21 +84,22 @@ CVector TF1D(CVector& in, bool inverse){
 // Transformée de Fourier 1D rapide 
 CVector TF1FFT(CVector in){
     int N = in.size();
-    if (N <= 1){
-        return CVector{in[0]};
+    if (N == 1){
+        return in;
     }
  
     // divide
     CVector even = slice1D(in,0,N/2, 2);
     CVector odd = slice1D(in,1,N/2, 2);
-    
+
+
     // conquer
-    TF1FFT(even);
-    TF1FFT(odd);
+    even = TF1FFT(even);
+    odd = TF1FFT(odd);
 
     // combine
     for (size_t k = 0; k < N/2; ++k){
-        Complex t = std::polar(1.0f, -2 * PI * k / N) * odd[k];
+        Complex t = std::polar(1.0f, -2 * PI * k / N*1.0f) * odd[k];
         in[k    ] = even[k] + t;
         in[k+N/2] = even[k] - t;
     }
@@ -113,7 +121,7 @@ CVector2D TF2DB(CVector2D& in, bool inverse){
 
             for(int x = 0 ; x < N ; x++){
                 for(int y = 0 ; y < N ; y++){
-                    Complex theta = 2.0fi*PI*((u*x*1.0f)/N+(v*y*1.0f)/N);
+                    Complex theta = -2.0fi*PI*((u*x*1.0f)/N+(v*y*1.0f)/N);
                     if(inverse){
                         theta*=-1;
                     }
@@ -131,15 +139,36 @@ CVector2D TF2DB(CVector2D& in, bool inverse){
 }
 
 
+// Transformée de Fourier 2D rapide
+CVector2D FF2FFT(CVector2D& in){
+    int N = in[0].size();
+    CVector2D out = CVector2D(in);
+    CVector2D temp = CVector2D(in);
+
+    for(int i = 0; i < N ; i++)
+        temp[i] = TF1FFT(in[i]);
+
+    CVector col(N,0.0f);
+    for(int x = 0 ; x < N ; x++){
+        for(int y = 0 ; y < N ; y++)
+            col[y] = temp[y][x];
+        col = TF1FFT(col);
+        for(int y = 0 ; y < N ; y++)
+            out[x][y] = col[y];
+    }
+    return out;
+}
+
 // ------- MAIN
 
 int main(){
 
-    CVector vecIn{1.0f,2.0f,3.0f,4.0f,5.0f};
-    CVector vecIn2{0.0f,4.0f,8.0f,16.0f,32.0f,64.0f,128.0f};
-    CVector vecIn3{1.0f,3.0f};
+    CVector vecIn{1.0f,2.0f,3.0f,4.0f};
+    CVector vecIn2{0.0f,4.0f,8.0f,16.0f,32.0f,64.0f,128.0f,256.0f};
+    CVector vecIn3{1.0f,1.0f,1.0f,1.0f,0.0f,0.0f,0.0f,0.0f};
 
-    //CVector2D machin{vector<float>{1.0f,2.0f},vector<float>{3.0f,4.0f}};
+
+    /*CVector2D machin{vector<float>{1.0f,2.0f},vector<float>{3.0f,4.0f}};
     //TF1DB(truc0,false);
     CVector vecOut = TF1D(vecIn3,false);
 
@@ -169,8 +198,23 @@ int main(){
     cout << "TF :"; 
     printVector2D(vecOut2D);
     cout << "TFI :";
-    printVector2D(vecOut2D_2);
+    printVector2D(vecOut2D_2);*/
 
 
+    CVector2D vecIn2D{{0.0f,1.0f,2.0f,3.0f},
+                      {0.0f,1.0f,2.0f,3.0f},
+                      {0.0f,1.0f,2.0f,3.0f},
+                      {0.0f,1.0f,2.0f,3.0f}};
+
+    /*CVector vecOutfft = TF1FFT(vecIn3);
+    CVector vecout = TF1D(vecIn3,false);*/
+    printVector2D(vecIn2D);
+    printVector2D(FF2FFT(vecIn2D));
+    //printVector2D(TF2DB(vecIn2D,false));
+    //printVector1D(TF1D(vecIn3,false));
+    //printVector1D(TF1FFT(vecIn3));
+
+
+    //printVector2D(vecIn2D);
     return 0;
 }
